@@ -77,12 +77,14 @@ export default function LoginModal({
         credentials: "include" // Important: Allow credentials (cookies) in the response
       });
 
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw { response: { data: errorData } };
-      }
-
       const data = await res.json();
+
+      if (!res.ok) {
+        // Handle error response from API
+        const errorMessage = data?.message || data?.error || "Invalid email or password";
+        setError(errorMessage);
+        return;
+      }
 
       // Update AuthContext with user data
       const userData = data.user;
@@ -109,7 +111,8 @@ export default function LoginModal({
       }, 50);
     } catch (err: any) {
       console.error("Login error:", err);
-      setError(err.response?.data?.message || "Invalid email or password");
+      // Handle network errors or JSON parsing errors
+      setError(err?.message || "Unable to connect. Please try again.");
     } finally {
       setIsLoading(false);
     }

@@ -11,6 +11,7 @@ import { Progress } from "@/components/ui/progress";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { AnalyticsService } from "@/services/analytics.service";
 import { useAuth } from "@/contexts/AuthContext";
+import { LivePreviewPanel } from "@/components/dashboard/LivePreviewPanel";
 
 // Fallback data when API is unavailable
 const fallbackDeviceData = [
@@ -103,85 +104,95 @@ function UserAnalyticsContent() {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <StatsCard
-                title="Total Clicks"
-                value={stats.totalClicks}
-                change={stats.clicksChange}
-                changeType="positive"
-                icon={MousePointerClick}
-                gradient
-              />
-              <StatsCard
-                title="Page Views"
-                value={stats.pageViews}
-                change={stats.viewsChange}
-                changeType="positive"
-                icon={Eye}
-              />
-              <StatsCard
-                title="Unique Visitors"
-                value={stats.uniqueVisitors}
-                change={stats.visitorsChange}
-                changeType="positive"
-                icon={Users}
-              />
-              <StatsCard
-                title="Avg. Time on Page"
-                value={stats.avgTime}
-                change={stats.timeChange}
-                changeType="positive"
-                icon={Clock}
-              />
-            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+              {/* Main Analytics Content - Takes 3 columns */}
+              <div className="lg:col-span-3 space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <StatsCard
+                    title="Total Clicks"
+                    value={stats.totalClicks}
+                    change={stats.clicksChange}
+                    changeType="positive"
+                    icon={MousePointerClick}
+                    gradient
+                  />
+                  <StatsCard
+                    title="Page Views"
+                    value={stats.pageViews}
+                    change={stats.viewsChange}
+                    changeType="positive"
+                    icon={Eye}
+                  />
+                  <StatsCard
+                    title="Unique Visitors"
+                    value={stats.uniqueVisitors}
+                    change={stats.visitorsChange}
+                    changeType="positive"
+                    icon={Users}
+                  />
+                  <StatsCard
+                    title="Avg. Time on Page"
+                    value={stats.avgTime}
+                    change={stats.timeChange}
+                    changeType="positive"
+                    icon={Clock}
+                  />
+                </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <AnalyticsChart variant="area" title="Clicks Over Time" subtitle="Daily click trends for the past 7 days" />
-              <AnalyticsChart variant="bar" title="Top Performing Links" subtitle="Links with the most clicks" />
-            </div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <AnalyticsChart variant="area" title="Clicks Over Time" subtitle="Daily click trends for the past 7 days" />
+                  <AnalyticsChart variant="bar" title="Top Performing Links" subtitle="Links with the most clicks" />
+                </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Device Breakdown</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {deviceData.map((item, index) => (
-                    <motion.div key={item.device} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.1 }}>
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="font-medium">{item.device}</span>
-                        <span className="text-muted-foreground">
-                          {item.count} ({item.percentage}%)
-                        </span>
-                      </div>
-                      <Progress value={item.percentage} className="h-2" />
-                    </motion.div>
-                  ))}
-                </CardContent>
-              </Card>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg">Device Breakdown</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {deviceData.map((item, index) => (
+                        <motion.div key={item.device} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.1 }}>
+                          <div className="flex justify-between text-sm mb-2">
+                            <span className="font-medium">{item.device}</span>
+                            <span className="text-muted-foreground">
+                              {item.count} ({item.percentage}%)
+                            </span>
+                          </div>
+                          <Progress value={item.percentage} className="h-2" />
+                        </motion.div>
+                      ))}
+                    </CardContent>
+                  </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    <Globe className="w-5 h-5" />
-                    Top Locations
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {topLocations.map((item, index) => (
-                    <motion.div key={item.country} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.1 }}>
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="font-medium flex items-center gap-2">
-                          <span>{item.flag}</span>
-                          {item.country}
-                        </span>
-                        <span className="text-muted-foreground">{item.percentage}%</span>
-                      </div>
-                      <Progress value={item.percentage} className="h-2" />
-                    </motion.div>
-                  ))}
-                </CardContent>
-              </Card>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Globe className="w-5 h-5" />
+                        Top Locations
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {topLocations.map((item, index) => (
+                        <motion.div key={item.country} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.1 }}>
+                          <div className="flex justify-between text-sm mb-2">
+                            <span className="font-medium flex items-center gap-2">
+                              <span>{item.flag}</span>
+                              {item.country}
+                            </span>
+                            <span className="text-muted-foreground">{item.percentage}%</span>
+                          </div>
+                          <Progress value={item.percentage} className="h-2" />
+                        </motion.div>
+                      ))}
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+
+              {/* Live Preview Panel - Takes 1 column, hidden on mobile */}
+              <div className="hidden lg:block">
+                <LivePreviewPanel />
+              </div>
             </div>
           </>
         )}

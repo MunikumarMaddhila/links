@@ -61,7 +61,7 @@ export function MobileNav() {
     .slice(0, 5);
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-border/60 bg-card/80 backdrop-blur-xl supports-[backdrop-filter]:bg-card/60" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-border/60 dashboard-header backdrop-blur-xl" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
       <div className="flex items-center justify-around h-16">
         {filteredItems.map((item) => {
           const isActive = pathname === item.href || pathname?.startsWith(`${item.href}/`);

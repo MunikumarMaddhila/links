@@ -123,3 +123,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Ensure Radix portals are always on top */
+[data-radix-popper-content-wrapper] {
+  z-index: 9999 !important;
+}
+
+[data-radix-portal] {
+  z-index: 9999 !important;
+}

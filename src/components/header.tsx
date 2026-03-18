@@ -66,7 +66,7 @@ export default function Header({ isScrolled }: HeaderProps) {
         <div className="hidden md:flex items-center gap-4">
           <button 
             onClick={handleLoginClick}
-            className="flex items-center gap-2 px-6 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors border border-border rounded-full hover:bg-gray-50"
+            className="login-btn flex items-center gap-2 px-6 py-2 text-sm font-medium text-foreground transition-colors border border-border rounded-full"
           >
             <User size={16} />
             Login

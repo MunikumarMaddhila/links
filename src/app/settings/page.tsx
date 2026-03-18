@@ -17,6 +17,7 @@ import { AuthService } from "@/services/auth.service";
 import { ChangePasswordModal } from "@/components/modals/ChangePasswordModal";
 import { TwoFactorAuthModal } from "@/components/modals/TwoFactorAuthModal";
 import { DeleteAccountModal } from "@/components/modals/DeleteAccountModal";
+import { LivePreviewPanel } from "@/components/dashboard/LivePreviewPanel";
 
 function SettingsContent() {
   const { user, logout } = useAuth();
@@ -186,7 +187,9 @@ function SettingsContent() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6 max-w-4xl">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {/* Main Settings Content - Takes 3 columns */}
+        <div className="lg:col-span-3 space-y-6">
         {/* Error Message */}
         {error && (
           <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/50 text-destructive">
@@ -470,6 +473,12 @@ function SettingsContent() {
             </CardContent>
           </Card>
         </motion.div>
+        </div>
+
+        {/* Live Preview Panel - Takes 1 column, hidden on mobile */}
+        <div className="hidden lg:block">
+          <LivePreviewPanel />
+        </div>
       </div>
 
       {/* Modals */}

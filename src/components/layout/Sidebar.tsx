@@ -22,6 +22,7 @@ import {
   ChevronRight,
   Zap,
   Layers,
+  Layout,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
@@ -57,6 +58,7 @@ const navItems: NavItem[] = [
   { label: 'My Links', href: '/dashboard/links', icon: LinkIcon, roles: ['user'] },
   { label: 'Analytics', href: '/dashboard/analytics', icon: BarChart3, roles: ['user'] },
   { label: 'Appearance', href: '/dashboard/appearance', icon: Palette, roles: ['user'] },
+  { label: 'Themes', href: '/dashboard/themes', icon: Layout, roles: ['user'] },
   { label: 'My Page', href: '/dashboard/preview', icon: Globe, roles: ['user'] },
   
   // Common Items
@@ -85,7 +87,8 @@ function SidebarContent() {
       initial={false}
       animate={{ width: collapsed ? 72 : 260 }}
       transition={{ duration: 0.2, ease: 'easeInOut' }}
-      className="hidden md:flex flex-col h-screen bg-card border-r border-border fixed left-0 top-0 z-40"
+      className="hidden md:flex flex-col h-screen bg-card border-r border-border fixed left-0 top-0"
+      style={{ zIndex: 50 }}
     >
       {/* Logo */}
       <div className="h-16 flex items-center justify-between px-4 border-b border-border">
@@ -115,7 +118,10 @@ function SidebarContent() {
       <nav className="flex-1 py-4 overflow-y-auto">
         <ul className="space-y-1 px-3">
           {filteredItems.map((item) => {
-            const isActive = pathname === item.href || pathname?.startsWith(`${item.href}/`);
+            // Fix: Only exact match for /dashboard, or startsWith for other routes
+            const isActive = item.href === '/dashboard' 
+              ? pathname === '/dashboard'
+              : pathname === item.href || pathname?.startsWith(`${item.href}/`);
             const Icon = item.icon;
 
             const linkContent = (

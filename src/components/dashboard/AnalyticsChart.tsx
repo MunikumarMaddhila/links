@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 
@@ -30,11 +29,7 @@ interface AnalyticsChartProps {
 
 export function AnalyticsChart({ variant = 'area', title, subtitle }: AnalyticsChartProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-    >
+    <div>
       <Card className="border-border">
         <CardHeader className="pb-2">
           <CardTitle className="text-lg font-semibold">{title}</CardTitle>
@@ -111,6 +106,6 @@ export function AnalyticsChart({ variant = 'area', title, subtitle }: AnalyticsC
           </div>
         </CardContent>
       </Card>
-    </motion.div>
+    </div>
   );
 }

@@ -15,6 +15,7 @@ import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { ThemeProvider, useTheme, colorThemes } from "@/contexts/ThemeContext";
 import { LinksProvider } from "@/contexts/LinksContext";
 import { AppearancePreview } from "@/components/dashboard/AppearancePreview";
+import { LivePreviewPanel } from "@/components/dashboard/LivePreviewPanel";
 
 function AppearanceContent() {
   const { 
@@ -506,7 +507,7 @@ function AppearanceContent() {
 
           {/* Preview - Takes 1 column, hidden on mobile */}
           <div className="hidden lg:block">
-            <AppearancePreview />
+            <LivePreviewPanel />
           </div>
         </div>
       </div>

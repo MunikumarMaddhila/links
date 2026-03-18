@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { LucideIcon } from 'lucide-react';
 
@@ -15,10 +14,7 @@ interface StatsCardProps {
 
 export function StatsCard({ title, value, change, changeType = 'neutral', icon: Icon, gradient }: StatsCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+    <div
       className={cn(
         "p-6 rounded-xl border transition-all duration-300 hover:shadow-lg",
         gradient
@@ -63,6 +59,6 @@ export function StatsCard({ title, value, change, changeType = 'neutral', icon: 
           )} />
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

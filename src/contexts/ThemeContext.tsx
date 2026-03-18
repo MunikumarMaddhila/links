@@ -3,7 +3,35 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 export type ButtonStyle = 'rounded' | 'pill' | 'sharp' | 'outline' | 'icon-left' | 'icon-left-rounded' | 'icon-circle' | 'icon-float';
-export type FontStyle = 'inter' | 'serif' | 'mono';
+export type FontStyle = 'inter' | 'serif' | 'mono' | 'poppins' | 'playfair' | 'space-grotesk';
+export type FontSize = 'small' | 'medium' | 'large';
+export type ButtonAnimation = 'none' | 'hover-lift' | 'pulse' | 'glow';
+export type BackgroundType = 'solid' | 'gradient' | 'image';
+
+export interface CustomColors {
+  backgroundColor: string;
+  backgroundGradient: string;
+  backgroundImage: string;
+  backgroundType: BackgroundType;
+  textColor: string;
+  subtextColor: string;
+  buttonBackground: string;
+  buttonText: string;
+  accentColor: string;
+}
+
+export interface CustomFonts {
+  headingFont: FontStyle;
+  bodyFont: FontStyle;
+  fontSize: FontSize;
+}
+
+export interface CustomButtons {
+  style: ButtonStyle;
+  animation: ButtonAnimation;
+  shadow: boolean;
+  borderRadius: number;
+}
 
 export interface ColorTheme {
   id: string;
@@ -233,6 +261,20 @@ interface ThemeContextType {
   setButtonStyle: (style: ButtonStyle) => void;
   fontStyle: FontStyle;
   setFontStyle: (style: FontStyle) => void;
+  // Layout theme (from Themes page)
+  layoutThemeId: string;
+  setLayoutThemeId: (id: string) => void;
+  // Custom colors
+  customColors: CustomColors;
+  setCustomColors: (colors: CustomColors) => void;
+  useCustomColors: boolean;
+  setUseCustomColors: (use: boolean) => void;
+  // Custom fonts
+  customFonts: CustomFonts;
+  setCustomFonts: (fonts: CustomFonts) => void;
+  // Custom buttons
+  customButtons: CustomButtons;
+  setCustomButtons: (buttons: CustomButtons) => void;
   // Legacy support
   currentTheme: ThemeSettings;
   setTheme: (theme: ThemeSettings) => void;
@@ -245,12 +287,43 @@ interface ThemeContextType {
   isLoading: boolean;
 }
 
+// Default customization values
+const defaultCustomColors: CustomColors = {
+  backgroundColor: '#667eea',
+  backgroundGradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+  backgroundImage: '',
+  backgroundType: 'gradient',
+  textColor: '#ffffff',
+  subtextColor: 'rgba(255, 255, 255, 0.8)',
+  buttonBackground: 'rgba(255, 255, 255, 0.95)',
+  buttonText: '#667eea',
+  accentColor: '#667eea',
+};
+
+const defaultCustomFonts: CustomFonts = {
+  headingFont: 'inter',
+  bodyFont: 'inter',
+  fontSize: 'medium',
+};
+
+const defaultCustomButtons: CustomButtons = {
+  style: 'rounded',
+  animation: 'none',
+  shadow: true,
+  borderRadius: 12,
+};
+
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [colorTheme, setColorTheme] = useState<ColorTheme>(colorThemes[0]);
   const [buttonStyle, setButtonStyle] = useState<ButtonStyle>('rounded');
   const [fontStyle, setFontStyle] = useState<FontStyle>('inter');
+  const [layoutThemeId, setLayoutThemeId] = useState<string>('ocean-dreamer');
+  const [customColors, setCustomColors] = useState<CustomColors>(defaultCustomColors);
+  const [useCustomColors, setUseCustomColors] = useState<boolean>(false); // Off by default - use layout colors
+  const [customFonts, setCustomFonts] = useState<CustomFonts>(defaultCustomFonts);
+  const [customButtons, setCustomButtons] = useState<CustomButtons>(defaultCustomButtons);
   const [profileName, setProfileName] = useState('Jordan Smith');
   const [profileBio, setProfileBio] = useState('Digital creator ✨');
   const [profileImage, setProfileImage] = useState('');
@@ -316,6 +389,16 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         setButtonStyle,
         fontStyle,
         setFontStyle,
+        layoutThemeId,
+        setLayoutThemeId,
+        customColors,
+        setCustomColors,
+        useCustomColors,
+        setUseCustomColors,
+        customFonts,
+        setCustomFonts,
+        customButtons,
+        setCustomButtons,
         currentTheme,
         setTheme,
         profileName,

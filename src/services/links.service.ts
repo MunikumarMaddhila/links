@@ -1,31 +1,31 @@
-import { http } from "./http";
+import { localHttp } from "./http";
 
 export const LinksService = {
   /**
    * GET /api/pages/{pageId}/links
-   * Fetch all links for a page
+   * Fetch all links for a page (proxied through Next.js API route)
    */
   getLinks: (pageId: string) =>
-    http.get(`/api/pages/${pageId}/links`),
+    localHttp.get(`/api/pages/${pageId}/links`),
 
   /**
    * POST /api/pages/{pageId}/links
-   * Create a new link
+   * Create a new link (proxied through Next.js API route)
    */
   createLink: (pageId: string, data: { icon: string; iconName: string; title: string; url: string }) =>
-    http.post(`/api/pages/${pageId}/links`, data),
+    localHttp.post(`/api/pages/${pageId}/links`, data),
 
   /**
    * PUT /api/pages/{pageId}/links
-   * Update an existing link
+   * Update an existing link (proxied through Next.js API route)
    */
   updateLink: (pageId: string, data: { linkId: string; icon: string; iconName: string; title: string; url: string }) =>
-    http.put(`/api/pages/${pageId}/links`, data),
+    localHttp.put(`/api/pages/${pageId}/links`, data),
 
   /**
    * DELETE /api/pages/{pageId}/links/{linkId}
-   * Delete a link
+   * Delete a link (proxied through Next.js API route)
    */
   deleteLink: (pageId: string, linkId: string) =>
-    http.delete(`/api/pages/${pageId}/links/${linkId}`),
+    localHttp.delete(`/api/pages/${pageId}/links/${linkId}`),
 };

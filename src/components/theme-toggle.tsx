@@ -30,7 +30,7 @@ export function ThemeToggle() {
   }
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="h-10 w-10 rounded-lg hover:bg-accent transition-colors">
           {theme === "light" ? (

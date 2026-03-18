@@ -135,12 +135,7 @@ export function LinkItem({ link, onToggle, onEdit, onDelete }: LinkItemProps) {
       dragControls={controls}
       className="mb-3"
     >
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        whileHover={{ scale: 1.01 }}
-        transition={{ duration: 0.2 }}
-      >
+      <div>
         <Card className={cn(
           "p-4 border transition-all duration-200",
           link.enabled ? "border-border bg-card" : "border-border/50 bg-muted/30"
@@ -218,7 +213,7 @@ export function LinkItem({ link, onToggle, onEdit, onDelete }: LinkItemProps) {
             </DropdownMenu>
           </div>
         </Card>
-      </motion.div>
+      </div>
     </Reorder.Item>
   );
 }

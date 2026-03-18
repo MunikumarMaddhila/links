@@ -142,3 +142,133 @@
     background-clip: text;
   }
 }
+
+/* Ensure Radix dropdown menus are always on top */
+[data-radix-popper-content-wrapper] {
+  z-index: 2147483647 !important;
+}
+
+/* Force dropdown content to be opaque and above everything */
+[role="menu"] {
+  background-color: hsl(var(--popover)) !important;
+  position: relative !important;
+  z-index: 2147483647 !important;
+  isolation: isolate !important;
+}
+
+/* Force main content to create a contained stacking context */
+main {
+  isolation: isolate;
+  transform: translateZ(0);
+}
+
+/* Ensure buttons in main content don't escape stacking context */
+main button {
+  z-index: auto !important;
+  position: relative;
+  transform: none !important;
+}
+
+main .shadow-glow {
+  z-index: auto !important;
+}
+
+/* Prevent compositor layer promotion for content buttons */
+main .gradient-primary {
+  will-change: auto !important;
+  transform: none !important;
+}
+
+/* Hide scrollbar utility class */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Phone preview scrollbar hide */
+.phone-screen {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.phone-screen::-webkit-scrollbar {
+  display: none;
+}
+
+/* Live Preview Panel - matches page background */
+.live-preview-panel {
+  background-color: hsl(var(--background)) !important;
+}
+
+/* Fix tabs background in dark mode */
+.themes-tablist {
+  background-color: rgb(243 244 246) !important;
+}
+
+.dark .themes-tablist {
+  background-color: rgb(31 41 55) !important;
+}
+
+.themes-tab {
+  color: rgb(55 65 81) !important;
+}
+
+.dark .themes-tab {
+  color: rgb(209 213 219) !important;
+}
+
+.themes-tab[data-state="active"] {
+  background-color: white !important;
+  color: rgb(17 24 39) !important;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.dark .themes-tab[data-state="active"] {
+  background-color: rgb(55 65 81) !important;
+  color: white !important;
+}
+
+/* Force dark mode text colors for headings and descriptions */
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4 {
+  color: white !important;
+}
+
+.dark .text-gray-900 {
+  color: white !important;
+}
+
+.dark .text-gray-500,
+.dark .text-gray-600 {
+  color: rgb(156 163 175) !important;
+}
+
+.dark .text-gray-700 {
+  color: rgb(209 213 219) !important;
+}
+
+/* Login button hover fix for dark mode */
+.login-btn:hover {
+  background-color: rgb(243 244 246);
+}
+.dark .login-btn:hover {
+  background-color: rgb(55 65 81) !important;
+  color: white !important;
+}
+
+/* Dashboard header background */
+.dashboard-header {
+  background-color: white !important;
+}
+.dark .dashboard-header {
+  background-color: rgb(3 7 18) !important;
+}
+
+/* Hide global scrollbar on Themes page when active */
+.no-scroll-themes {
+  overflow: hidden !important;
+}

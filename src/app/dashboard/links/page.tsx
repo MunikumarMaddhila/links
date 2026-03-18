@@ -2,6 +2,7 @@
 
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { LinkList } from "@/components/links/LinkList";
+import { LivePreviewPanel } from "@/components/dashboard/LivePreviewPanel";
 import { LinksProvider } from "@/contexts/LinksContext";
 import { motion } from "framer-motion";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
@@ -22,9 +23,9 @@ function UserLinksContent() {
               <LinkList />
             </div>
 
-            {/* Preview Panel - Takes 1 column, hidden on mobile */}
+            {/* Live Preview Panel - Takes 1 column, hidden on mobile */}
             <div className="hidden lg:block">
-              <LinkList showPreview />
+              <LivePreviewPanel />
             </div>
           </div>
         </div>

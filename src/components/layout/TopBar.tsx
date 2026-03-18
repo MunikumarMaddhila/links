@@ -40,7 +40,9 @@ export function TopBar({ onMenuClick }: TopBarProps) {
   const roleInfo = roleLabels[userRole] || roleLabels.user;
 
   return (
-    <header className="h-16 bg-card border-b border-border flex items-center justify-between px-4 md:px-6 fixed top-0 right-0 left-0 md:left-[260px] z-9999">
+    <header 
+      className="dashboard-header h-16 border-b border-border flex items-center justify-between px-4 md:px-6 fixed top-0 right-0 left-0 md:left-[260px] z-[9999] shadow-sm"
+    >
       {/* Mobile Menu Button */}
       <Button
         variant="ghost"
@@ -74,7 +76,6 @@ export function TopBar({ onMenuClick }: TopBarProps) {
         </Button>
 
         {/* User Menu */}
-        <div className="relative z-99999">
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="gap-2 px-2">
@@ -113,7 +114,6 @@ export function TopBar({ onMenuClick }: TopBarProps) {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        </div>
       </div>
     </header>
   );

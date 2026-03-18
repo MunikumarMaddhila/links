@@ -102,11 +102,11 @@ export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
             animate={{ x: 0 }}
             exit={{ x: -320 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="fixed left-0 top-0 h-screen w-80 bg-background/95 backdrop-blur-xl border-r border-border z-50 md:hidden flex flex-col shadow-2xl"
+            className="fixed left-0 top-0 h-screen w-80 dashboard-header backdrop-blur-xl border-r border-border z-50 md:hidden flex flex-col shadow-2xl"
             style={{ pointerEvents: 'auto' }}
           >
             {/* Header */}
-            <div className="flex items-center justify-between h-20 px-6 border-b border-border/50 bg-muted/30">
+            <div className="flex items-center justify-between h-20 px-6 border-b border-border/50 dashboard-header">
               <div className="flex items-center gap-3 flex-1">
                 <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center shadow-lg shrink-0">
                   <LinkIcon className="w-5 h-5 text-primary-foreground" />
@@ -132,7 +132,6 @@ export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
                 {filteredItems.map((item, index) => {
                   const isActive = pathname === item.href || pathname?.startsWith(`${item.href}/`);
                   const Icon = item.icon;
-
                   return (
                     <motion.li
                       key={item.href}
@@ -144,19 +143,17 @@ export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
                         href={item.href}
                         onClick={onClose}
                         className={cn(
-                          "flex items-center gap-4 px-4 py-3.5 rounded-xl transition-all duration-200 group relative",
-                          isActive
-                            ? "bg-primary text-primary-foreground shadow-md scale-[1.02]"
-                            : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                        )}
+                            "flex items-center gap-4 px-4 py-3.5 rounded-xl transition-all duration-200 group relative",
+                            isActive
+                              ? "bg-primary text-primary-foreground shadow-md scale-[1.02]"
+                              : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                          )}
                       >
-                        <div className={cn(
-                          "p-2 rounded-lg transition-colors",
-                          isActive
-                            ? "bg-white/20 dark:bg-black/20"
-                            : "bg-muted group-hover:bg-muted/80"
-                        )}>
-                          <Icon className="w-5 h-5" />
+                          <div className={cn(
+                            "p-2 rounded-lg transition-colors",
+                            isActive ? "bg-white/20 dark:bg-black/20" : "bg-muted group-hover:bg-muted/80"
+                          )}>
+                            <Icon className="w-5 h-5" />
                         </div>
                         <span className="flex-1 text-sm font-semibold">{item.label}</span>
                         {item.badge && (
@@ -172,7 +169,7 @@ export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
             </nav>
 
             {/* Footer */}
-            <div className="border-t border-border/50 px-4 py-4 bg-muted/30">
+            <div className="border-t border-border/50 px-4 py-4 bg-muted">
               <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-background border border-border/50 shadow-sm">
                 <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center shrink-0">
                   <span className="text-sm font-bold text-primary-foreground">

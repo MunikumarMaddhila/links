@@ -7,7 +7,6 @@ import { TopBar } from './TopBar';
 import { MobileNav } from './MobileNav';
 import { MobileDrawer } from './MobileDrawer';
 import { useAuth } from '@/contexts/AuthContext';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -29,18 +28,13 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   if (isLoading) {
     return (
       <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-background">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3 }}
-          className="flex flex-col items-center gap-4"
-        >
+        <div className="flex flex-col items-center gap-4">
           <div className="relative w-12 h-12">
             <div className="absolute inset-0 rounded-full border-4 border-muted" />
             <div className="absolute inset-0 rounded-full border-4 border-t-primary border-r-transparent border-b-transparent border-l-transparent animate-spin" />
           </div>
           <p className="text-sm font-medium text-muted-foreground animate-pulse">Loading...</p>
-        </motion.div>
+        </div>
       </div>
     );
   }
@@ -51,28 +45,19 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      {/* Fixed elements */}
+      <TopBar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
       <Sidebar />
       <MobileDrawer open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-      
-      <div className="md:ml-[260px] flex flex-col min-h-screen transition-all duration-200">
-        <TopBar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
-        
-        <AnimatePresence mode="wait">
-          <motion.main
-            key="dashboard-main"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            style={{ isolation: 'auto' }}
-            className="flex-1 p-4 md:p-6 pb-24 md:pb-6 mt-16"
-          >
-            {children}
-          </motion.main>
-        </AnimatePresence>
-      </div>
-
       <MobileNav />
-    </div>
+      
+      {/* Main content wrapper */}
+      <div className="min-h-screen bg-background md:ml-[260px]">
+        <main className="pt-16 p-4 md:p-6 md:pt-20 pb-24 md:pb-6">
+          {children}
+        </main>
+      </div>
+    </>
   );
 }

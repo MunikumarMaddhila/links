@@ -50,8 +50,12 @@ export function LinksProvider({ children }: { children: ReactNode }) {
         : [];
       setLinks(mapped);
     } catch (error: any) {
-      console.error('[Links] Failed to fetch links:', error);
-      // If GET endpoint doesn't exist, start with empty list
+      // If GET endpoint doesn't exist or fails, start with empty list
+      // Only log unexpected errors (not 404/500 which means endpoint not ready)
+      const status = error?.response?.status;
+      if (status !== 404 && status !== 500) {
+        console.error('[Links] Failed to fetch links:', error);
+      }
       setLinks([]);
     } finally {
       setIsLoading(false);
